@@ -1,2 +1,2 @@
 [webservers]
-192.168.1.70 ansible_user=denis 
+ansible_host=192.168.1.70 ansible_user=denis 
