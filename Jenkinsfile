@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t kammana/nodeapp:${DOCKER_TAG} "
+                sh "docker build . -t kammana/nodeapp:${DOCKER_TAG}:latest . "
             }
         }
         stage("docker login") {
@@ -15,14 +15,6 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_kose1n', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh "docker login -u $USERNAME -p $PASSWORD"
                 }
-            }
-        }
-        stage('create docker image') {
-            steps {
-                   echo ' ============== start building image =================='
-                   dir ('docker/k8_docker') {
-                         sh 'docker build -t kose1n/k8_docker:latest . '
-                   }
             }
         }
         stage("docker push") {
