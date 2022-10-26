@@ -14,8 +14,23 @@ pipeline {
                 echo " ============== docker login and push =================="
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_kose1n', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh "docker login -u $USERNAME -p $PASSWORD"
-                    sh 'docker push kose1n/k8_docker:${DOCKER_TAG}:latest . '
                 }
+            }
+        }
+        stage('create docker image') {
+            steps {
+                   echo ' ============== start building image =================='
+                   dir ('docker/k8_docker') {
+                         sh 'docker build -t kose1n/k8_docker:latest . '
+                   }
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push kose1n/k8_docker:latest
+                '''
             }
         }
     }
