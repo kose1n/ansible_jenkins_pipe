@@ -20,7 +20,7 @@ pipeline {
         stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="
-                sh 'docker push ${USERNAME}/k8_docker:${DOCKER_TAG}'
+                sh 'docker push kose1n/k8_docker:${DOCKER_TAG}:latest'
             }
         }
     }
