@@ -25,7 +25,17 @@ pipeline {
                 '''
             }
         }
+        //stage("push to k8") {
+            //steps {
+            //}
+        //}
+        
+        //stage("test") {
+            //steps {
+            //}
+        //}
     }
+    
 }
 
 def getDockerTag(){
